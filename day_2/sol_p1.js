@@ -1,25 +1,28 @@
-const fs = require("fs");
+/**
+ * @param {string} data
+ */
+function main(data) {
+  const inputArr = data.toString().split('\n');
 
-const data = fs.readFileSync("./input.txt");
+  let validCount = 0;
 
-const inputArr = data.toString().split("\n");
+  inputArr.forEach((input) => {
+    const [policy, password] = input.split(': ');
+    const [rangeStr, letter] = policy.split(' ');
 
-let validCount = 0;
+    let [minOcc, maxOcc] = rangeStr.split('-');
+    minOcc = Number.parseInt(minOcc);
+    maxOcc = Number.parseInt(maxOcc);
 
-inputArr.forEach((input) => {
-  const [policy, password] = input.split(": ");
-  const [rangeStr, letter] = policy.split(" ");
+    occCount = password.split('').filter((l) => l === letter).length;
 
-  let [minOcc, maxOcc] = rangeStr.split("-");
-  minOcc = Number.parseInt(minOcc);
-  maxOcc = Number.parseInt(maxOcc);
+    const valid = occCount >= minOcc && occCount <= maxOcc;
+    if (valid) {
+      validCount += 1;
+    }
+  });
 
-  occCount = password.split("").filter((l) => l === letter).length;
+  return validCount;
+}
 
-  const valid = occCount >= minOcc && occCount <= maxOcc;
-  if (valid) {
-    validCount += 1;
-  }
-});
-
-console.log({ validCount });
+module.exports = main;

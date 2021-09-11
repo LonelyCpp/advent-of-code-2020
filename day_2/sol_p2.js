@@ -1,30 +1,29 @@
-const fs = require("fs");
+/**
+ * @param {string} data
+ */
+function main(data) {
+  const inputArr = data.toString().split('\n');
 
-const data = fs.readFileSync("./input.txt");
+  let validCount = 0;
 
-// const data = `1-3 a: abcde
-// 1-3 b: cdefg
-// 2-9 c: ccccccccc`;
+  inputArr.forEach((input) => {
+    const [policy, password] = input.split(': ');
+    const [rangeStr, letter] = policy.split(' ');
 
-const inputArr = data.toString().split("\n");
+    let [pos1, pos2] = rangeStr.split('-');
 
-let validCount = 0;
+    pos1 = Number.parseInt(pos1) - 1;
+    pos2 = Number.parseInt(pos2) - 1;
 
-inputArr.forEach((input) => {
-  const [policy, password] = input.split(": ");
-  const [rangeStr, letter] = policy.split(" ");
+    const valid =
+      (password.charAt(pos1) === letter) ^ (password.charAt(pos2) === letter);
 
-  let [pos1, pos2] = rangeStr.split("-");
+    if (valid) {
+      validCount += 1;
+    }
+  });
 
-  pos1 = Number.parseInt(pos1) - 1;
-  pos2 = Number.parseInt(pos2) - 1;
+  return validCount;
+}
 
-  const valid =
-    (password.charAt(pos1) === letter) ^ (password.charAt(pos2) === letter);
-
-  if (valid) {
-    validCount += 1;
-  }
-});
-
-console.log({ validCount });
+module.exports = main;

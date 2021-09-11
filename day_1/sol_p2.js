@@ -1,33 +1,37 @@
-const fs = require("fs");
+/**
+ * @param {string} data
+ */
+function main(data) {
+  const inputArr = data
+    .toString()
+    .split('\n')
+    .map((v) => Number.parseInt(v, 10));
 
-const data = fs.readFileSync("./input.txt");
+  let res;
 
-const inputArr = data
-  .toString()
-  .split("\n")
-  .map((v) => Number.parseInt(v));
-
-const main = () => {
-  for (let numMaster of inputArr) {
+  inputArr.some((numMaster) => {
     if (numMaster > 2020) {
-      continue;
+      return false;
     }
 
     const sumToFind = 2020 - numMaster;
 
     const seen = new Set();
-    for (let num of inputArr) {
+
+    return inputArr.some((num) => {
       const mate = sumToFind - num;
 
       if (seen.has(mate)) {
-        console.log({ numMaster, num, mate, sum: numMaster + num + mate });
-        console.log(mate * num * numMaster);
-        return;
+        res = mate * num * numMaster;
+        return true;
       }
 
       seen.add(num);
-    }
-  }
-};
+      return false;
+    });
+  });
 
-main();
+  return res;
+}
+
+module.exports = main;

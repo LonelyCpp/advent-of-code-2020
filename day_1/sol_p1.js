@@ -1,22 +1,29 @@
-const fs = require("fs");
+/**
+ * @param {string} data
+ */
+function main(data) {
+  const inputArr = data
+    .toString()
+    .split('\n')
+    .map((v) => Number.parseInt(v, 10));
 
-const data = fs.readFileSync("./input.txt");
+  const seen = new Set();
 
-const inputArr = data
-  .toString()
-  .split("\n")
-  .map((v) => Number.parseInt(v));
+  let res;
 
-const seen = new Set();
+  inputArr.some((num) => {
+    const mate = 2020 - num;
 
-for (let num of inputArr) {
-  const mate = 2020 - num;
+    if (seen.has(mate)) {
+      res = mate * num;
+      return true;
+    }
 
-  if (seen.has(mate)) {
-    console.log({ num, mate, sum: num + mate });
-    console.log(mate * num);
-    break;
-  }
+    seen.add(num);
+    return false;
+  });
 
-  seen.add(num);
+  return res;
 }
+
+module.exports = main;
