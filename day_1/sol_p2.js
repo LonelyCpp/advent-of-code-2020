@@ -2,10 +2,7 @@
  * @param {string} data
  */
 function main(data) {
-  const inputArr = data
-    .toString()
-    .split('\n')
-    .map((v) => Number.parseInt(v, 10));
+  const inputArr = data.split('\n').map((v) => Number.parseInt(v, 10));
 
   let res;
 

@@ -3,13 +3,10 @@
  */
 function main(data) {
   // true => tree; false => free space
-  const routeMap = data
-    .toString()
-    .split('\n')
-    .map((row) => {
-      const arr = row.split('');
-      return arr.map((block) => block === '#');
-    });
+  const routeMap = data.split('\n').map((row) => {
+    const arr = row.split('');
+    return arr.map((block) => block === '#');
+  });
 
   let posX = 0;
   let posY = 0;

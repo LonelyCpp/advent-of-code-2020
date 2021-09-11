@@ -2,7 +2,7 @@ const fs = require('fs');
 const p1 = require('./sol_p1');
 const p2 = require('./sol_p2');
 
-const input = fs.readFileSync('./day_1/input.txt');
+const input = fs.readFileSync('./day_1/input.txt').toString();
 
 describe('day 1', () => {
   test('part 1', () => {

@@ -2,7 +2,7 @@
  * @param {string} data
  */
 function main(data) {
-  const inputArr = data.toString().split('\n');
+  const inputArr = data.split('\n');
 
   let validCount = 0;
 

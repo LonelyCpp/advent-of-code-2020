@@ -1,21 +1,21 @@
-const fs = require('fs');
+function main(data) {
+  const requiredFields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'];
 
-const data = fs.readFileSync('./input.txt').toString();
+  const batch = data.split('\n\n');
 
-const requiredFields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'];
+  let validCount = 0;
 
-const batch = data.split('\n\n');
+  batch.forEach((passportStr) => {
+    const invalid = requiredFields.some(
+      (field) => passportStr.search(field) === -1,
+    );
 
-let validCount = 0;
+    if (!invalid) {
+      validCount += 1;
+    }
+  });
 
-batch.forEach((passportStr) => {
-  const invalid = requiredFields.some(
-    (field) => passportStr.search(field) === -1,
-  );
+  return validCount;
+}
 
-  if (!invalid) {
-    validCount += 1;
-  }
-});
-
-console.log({ validCount });
+module.exports = main;
